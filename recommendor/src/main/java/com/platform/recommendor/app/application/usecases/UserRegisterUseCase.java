@@ -5,24 +5,27 @@ import com.platform.recommendor.app.application.dto.user.UserResponse;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.BookRecommendorRepository;
 import jakarta.transaction.Transactional;
-import org.apache.catalina.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserRegisterUseCase {
     private final BookRecommendorRepository repository;
-    private final BCryptPasswordEncoder encoder;
-    public UserRegisterUseCase(BookRecommendorRepository repository,  BCryptPasswordEncoder encoder) {
+    private final PasswordEncoder encoder;
+    public UserRegisterUseCase(BookRecommendorRepository repository,  PasswordEncoder encoder) {
         this.repository = repository;
         this.encoder = encoder;
     }
 
     @Transactional
     public UserResponse registerUser(UserRequest userRequest) {
+
         UserModel user = new UserModel();
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setUsername(userRequest.getUsername());
+        user.setPassword(encoder.encode(userRequest.getPassword()));
 
         UserModel savedUser = repository.saveUser(user);
         UserResponse userResponse = new UserResponse();
@@ -30,7 +33,10 @@ public class UserRegisterUseCase {
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName(savedUser.getLastName());
         userResponse.setEmail(savedUser.getEmail());
+        userResponse.setUsername(savedUser.getUsername());
         return userResponse;
 
     }
+
+
 }

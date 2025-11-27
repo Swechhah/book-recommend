@@ -4,11 +4,14 @@ import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.BookRecommendorRepository;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
 public class BookRecommendorRepositoryAdapter implements BookRecommendorRepository {
     private final UserJpaRepository userJpaRepository;
     private final EntityMapper entityMapper;
