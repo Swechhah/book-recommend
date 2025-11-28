@@ -1,5 +1,6 @@
-package com.platform.recommendor.app.infrastucture;
+package com.platform.recommendor.app.infrastucture.ports;
 
+import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,10 @@ public interface BookRecommendorRepository {
     void deleteUser(Long id);
     Optional<UserModel> getUserByUsername(String username);
     Optional<UserModel> getUserByEmail(String email);
+    List<BookModel> getAllBooks();
+    Optional<BookModel> getBookById(Long id);
+    BookModel saveBook(BookModel book);
+    void deleteBookById(Long id);
+    Optional<BookModel> getBookByISBN(String title);
+    void saveAllBooks(List<BookModel> books);
 }

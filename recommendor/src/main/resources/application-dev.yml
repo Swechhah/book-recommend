@@ -9,7 +9,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: 12345
-
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,7 +20,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
+        jdbc:
+          batch_size: 1000
+        order_updates: true
+        order_inserts: true
 jwt:
   secret: uifdjhwerutw37348798((&*()_^%^&&(&%&^*(ouDIGHHJGEJK
+
 

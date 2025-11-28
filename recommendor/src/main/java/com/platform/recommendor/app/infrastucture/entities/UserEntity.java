@@ -22,5 +22,9 @@ public class UserEntity {
     private String username;
     @Column
     private String password;
+    @Column
+    private int age;
+    @Column
+    private String location;
 
 }

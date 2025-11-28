@@ -1,6 +1,8 @@
 package com.platform.recommendor.app.infrastucture.adapters;
 
+import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.UserModel;
+import com.platform.recommendor.app.infrastucture.entities.BookEntity;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -25,5 +27,25 @@ public class EntityMapper {
         userModel.setFirstName(userEntity.getFirstName());
         userModel.setLastName(userEntity.getLastName());
         return userModel;
+    }
+    BookEntity toBookEntity(BookModel bookModel) {
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setId(bookModel.getId());
+        bookEntity.setIsbn(bookModel.getIsbn());
+        bookEntity.setTitle(bookModel.getTitle());
+        bookEntity.setAuthor(bookModel.getAuthor());
+        bookEntity.setPublisher(bookModel.getPublisher());
+        bookEntity.setImage_url(bookModel.getImage_url());
+        return bookEntity;
+    }
+    BookModel toBookModel(BookEntity bookEntity) {
+        BookModel bookModel = new BookModel();
+        bookModel.setId(bookEntity.getId());
+        bookModel.setIsbn(bookEntity.getIsbn());
+        bookModel.setTitle(bookEntity.getTitle());
+        bookModel.setAuthor(bookEntity.getAuthor());
+        bookModel.setPublisher(bookEntity.getPublisher());
+        bookModel.setImage_url(bookEntity.getImage_url());
+        return bookModel;
     }
 }

@@ -3,7 +3,7 @@ package com.platform.recommendor.app.application.usecases;
 import com.platform.recommendor.app.application.dto.user.UserRequest;
 import com.platform.recommendor.app.application.dto.user.UserResponse;
 import com.platform.recommendor.app.domain.model.UserModel;
-import com.platform.recommendor.app.infrastucture.BookRecommendorRepository;
+import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

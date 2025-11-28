@@ -1,7 +1,7 @@
 package com.platform.recommendor.app.application.usecases;
 
 import com.platform.recommendor.app.domain.model.UserModel;
-import com.platform.recommendor.app.infrastucture.BookRecommendorRepository;
+import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
