@@ -1,11 +1,14 @@
 package com.platform.recommendor.app.infrastucture.adapters;
 
 import com.platform.recommendor.app.domain.model.BookModel;
+import com.platform.recommendor.app.domain.model.RatingsModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.entities.BookEntity;
+import com.platform.recommendor.app.infrastucture.entities.RatingsEntity;
 import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import com.platform.recommendor.app.infrastucture.repositories.BookJpaRepository;
+import com.platform.recommendor.app.infrastucture.repositories.RatingsJpaRepository;
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,14 +25,19 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     private final UserJpaRepository userJpaRepository;
     private final BookJpaRepository bookJpaRepository;
     private final EntityMapper entityMapper;
+    private final RatingsJpaRepository ratingsJpaRepository;
     @PersistenceContext
     private EntityManager entityManager;
     private static final int BATCH_SIZE = 1000;
 
-    BookRecommendorRepositoryAdapter(UserJpaRepository userJpaRepository,  EntityMapper entityMapper,  BookJpaRepository bookJpaRepository) {
+    BookRecommendorRepositoryAdapter(UserJpaRepository userJpaRepository,
+                                     EntityMapper entityMapper,
+                                     BookJpaRepository bookJpaRepository,
+                                     RatingsJpaRepository ratingsJpaRepository) {
         this.userJpaRepository = userJpaRepository;
         this.entityMapper = entityMapper;
         this.bookJpaRepository = bookJpaRepository;
+        this.ratingsJpaRepository = ratingsJpaRepository;
     }
     @Override
     public Optional<List<UserModel>> getAllUsers() {
@@ -114,4 +122,54 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
         entityManager.flush();
         entityManager.clear();
     }
+
+    @Override
+    public List<BookModel> searchBooks(String title, String author, String publisher) {
+        return bookJpaRepository
+                .findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCaseOrPublisherContainingIgnoreCase
+                        (title, author, publisher)
+                .stream()
+                .map(entityMapper::toBookModel)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RatingsModel> getAllRatings() {
+        return ratingsJpaRepository.findAll().stream().map(entityMapper::toRatingsModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<RatingsModel> getRatingById(Long id) {
+        return ratingsJpaRepository.findById(id).map(entityMapper::toRatingsModel);
+    }
+
+    @Override
+    public RatingsModel saveRating(RatingsModel rating) {
+        RatingsEntity ratingsEntity = entityMapper.toRatingsEntity(rating);
+        RatingsEntity ratingsEntitySaved = ratingsJpaRepository.save(ratingsEntity);
+        return entityMapper.toRatingsModel(ratingsEntitySaved);
+    }
+
+    @Override
+    public void deleteRatingById(Long id) {
+        ratingsJpaRepository.deleteById(id);
+
+    }
+
+    @Override
+    public Optional<RatingsModel> getRatingByUserIdAndBookId(Long userId, Long bookId) {
+        return ratingsJpaRepository.findByUserIdAndBookId(userId, bookId).map(entityMapper::toRatingsModel);
+    }
+
+    @Override
+    public void deleteAllRatingsByUserId(Long userId) {
+        ratingsJpaRepository.deleteAllByUserId(userId);
+    }
+
+    @Override
+    public void deleteAllRatingsByBookId(Long bookId) {
+        ratingsJpaRepository.deleteAllByBookId(bookId);
+    }
+
+
 }

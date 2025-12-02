@@ -1,23 +1,15 @@
-package com.platform.recommendor.app.infrastucture.entities;
+package com.platform.recommendor.app.application.dto.rating;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class RatingsEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RatingResponse {
     private Long id;
-    @Column
     private Short rating;
-    @Column
     private Long userId;
-    @Column
     private Long bookId;
 }

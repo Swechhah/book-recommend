@@ -20,7 +20,7 @@ public class BookImportController {
         try {
             importer.importBooks(file);
             return new LoginResponse("Books imported successfully.");
-        } catch (Exception e) {
+        } catch (Exception _) {
             return new LoginResponse("Books could not be imported.");
         }
     }

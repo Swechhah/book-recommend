@@ -1,5 +1,6 @@
 package com.platform.recommendor.app.infrastucture.entities;
 
+import com.platform.recommendor.app.domain.model.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +27,7 @@ public class UserEntity {
     private int age;
     @Column
     private String location;
+    @Column
+    private UserModel.UserRole role;
 
 }

@@ -1,8 +1,10 @@
 package com.platform.recommendor.app.infrastucture.adapters;
 
 import com.platform.recommendor.app.domain.model.BookModel;
+import com.platform.recommendor.app.domain.model.RatingsModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.entities.BookEntity;
+import com.platform.recommendor.app.infrastucture.entities.RatingsEntity;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -47,5 +49,22 @@ public class EntityMapper {
         bookModel.setPublisher(bookEntity.getPublisher());
         bookModel.setImage_url(bookEntity.getImage_url());
         return bookModel;
+    }
+
+    RatingsModel  toRatingsModel(RatingsEntity ratingsEntity) {
+        RatingsModel ratingsModel = new RatingsModel();
+        ratingsModel.setId(ratingsEntity.getId());
+        ratingsModel.setRating(ratingsEntity.getRating());
+        ratingsModel.setBookId(ratingsEntity.getBookId());
+        ratingsModel.setUserId(ratingsEntity.getUserId());
+        return ratingsModel;
+    }
+    RatingsEntity toRatingsEntity(RatingsModel ratingsModel) {
+        RatingsEntity ratingsEntity = new RatingsEntity();
+        ratingsEntity.setId(ratingsModel.getId());
+        ratingsEntity.setRating(ratingsModel.getRating());
+        ratingsEntity.setBookId(ratingsModel.getBookId());
+        ratingsEntity.setUserId(ratingsModel.getUserId());
+        return ratingsEntity;
     }
 }
