@@ -3,6 +3,7 @@ package com.platform.recommendor.app.infrastucture.ports;
 import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.RatingsModel;
 import com.platform.recommendor.app.domain.model.UserModel;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface BookRecommendorRepository {
     BookModel saveBook(BookModel book);
     void deleteBookById(Long id);
     Optional<BookModel> getBookByISBN(String title);
-    void saveAllBooks(List<BookModel> books);
+    Page<BookModel> getBooksPage(int pageNumber, int pageSize);
     List<BookModel> searchBooks(String title, String author, String publisher);
     List<RatingsModel> getAllRatings();
     Optional<RatingsModel> getRatingById(Long id);

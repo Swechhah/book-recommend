@@ -10,10 +10,8 @@ import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import com.platform.recommendor.app.infrastucture.repositories.BookJpaRepository;
 import com.platform.recommendor.app.infrastucture.repositories.RatingsJpaRepository;
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
-import org.aspectj.weaver.Lint;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,9 +24,6 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     private final BookJpaRepository bookJpaRepository;
     private final EntityMapper entityMapper;
     private final RatingsJpaRepository ratingsJpaRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
-    private static final int BATCH_SIZE = 1000;
 
     BookRecommendorRepositoryAdapter(UserJpaRepository userJpaRepository,
                                      EntityMapper entityMapper,
@@ -99,29 +94,7 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
         return bookJpaRepository.findByIsbn(title).map(entityMapper::toBookModel);
     }
 
-    @Override
-    public void saveAllBooks(List<BookModel> books) {
 
-        int count = 0;
-
-        for (BookModel model : books) {
-
-            saveSingle(model);   // each call has its own transaction
-
-            if (++count % BATCH_SIZE == 0) {
-                System.out.println("Imported: " + count);
-            }
-        }
-    }
-
-    @Transactional   // VERY IMPORTANT
-    public void saveSingle(BookModel model) {
-
-        BookEntity entity = entityMapper.toBookEntity(model);
-        entityManager.persist(entity);
-        entityManager.flush();
-        entityManager.clear();
-    }
 
     @Override
     public List<BookModel> searchBooks(String title, String author, String publisher) {
@@ -171,5 +144,9 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
         ratingsJpaRepository.deleteAllByBookId(bookId);
     }
 
-
+    @Override
+    public Page<BookModel> getBooksPage(int pageNumber, int pageSize) {
+        Page<BookEntity> bookEntityPage = bookJpaRepository.findAll(PageRequest.of(pageNumber, pageSize));
+        return bookEntityPage.map(entityMapper::toBookModel);
+    }
 }

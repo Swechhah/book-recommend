@@ -11,9 +11,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
-        <module name="book-recommend" />
       </profile>
-      <profile name="Annotation profile for recommendor" enabled="true">
+      <profile name="Annotation profile for Archetype - book-recommend" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

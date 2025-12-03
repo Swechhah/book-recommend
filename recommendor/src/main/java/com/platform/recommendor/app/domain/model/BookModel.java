@@ -17,5 +17,4 @@ public class BookModel {
     private String publisher;
     private String isbn;
     private String image_url;
-
 }

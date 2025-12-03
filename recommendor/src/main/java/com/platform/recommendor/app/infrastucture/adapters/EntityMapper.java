@@ -18,6 +18,7 @@ public class EntityMapper {
         userEntity.setEmail(userModel.getEmail());
         userEntity.setFirstName(userModel.getFirstName());
         userEntity.setLastName(userModel.getLastName());
+        userEntity.setRole(userModel.getRole());
         return userEntity;
     }
     UserModel toUserModel(UserEntity userEntity) {
@@ -28,6 +29,7 @@ public class EntityMapper {
         userModel.setEmail(userEntity.getEmail());
         userModel.setFirstName(userEntity.getFirstName());
         userModel.setLastName(userEntity.getLastName());
+        userModel.setRole(userEntity.getRole());
         return userModel;
     }
     BookEntity toBookEntity(BookModel bookModel) {

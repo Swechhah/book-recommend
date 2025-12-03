@@ -26,6 +26,7 @@ public class UserRegisterUseCase {
         user.setEmail(userRequest.getEmail());
         user.setUsername(userRequest.getUsername());
         user.setPassword(encoder.encode(userRequest.getPassword()));
+        user.setRole(UserModel.UserRole.USER);
 
         UserModel savedUser = repository.saveUser(user);
         UserResponse userResponse = new UserResponse();

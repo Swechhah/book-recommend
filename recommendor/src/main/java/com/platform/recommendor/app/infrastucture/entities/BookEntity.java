@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String title;

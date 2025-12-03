@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy the built JAR file (assumes you ran ./mvnw package or gradle build)
 # Replace <your-backend-jar>.jar with the actual JAR name
-COPY target/*.jar app.jar
+COPY recommendor/target/*.jar app.jar
 
 # Expose Spring Boot default port
 EXPOSE 8080
