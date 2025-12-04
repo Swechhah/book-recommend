@@ -2,6 +2,7 @@ package com.platform.recommendor.app.infrastucture.ports;
 
 import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.RatingsModel;
+import com.platform.recommendor.app.domain.model.RecommendationModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,7 @@ public interface BookRecommendorRepository {
     Optional<RatingsModel> getRatingByUserIdAndBookId(Long userId, Long bookId);
     void deleteAllRatingsByUserId(Long userId);
     void deleteAllRatingsByBookId(Long bookId);
+    RecommendationModel saveRecommendations(RecommendationModel recommendationModel);
+    RecommendationModel getRecommendationById(Long id);
+    List<RecommendationModel> getRecommendatioByUserId(Long userId);
 }

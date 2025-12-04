@@ -2,9 +2,11 @@ package com.platform.recommendor.app.infrastucture.adapters;
 
 import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.RatingsModel;
+import com.platform.recommendor.app.domain.model.RecommendationModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.entities.BookEntity;
 import com.platform.recommendor.app.infrastucture.entities.RatingsEntity;
+import com.platform.recommendor.app.infrastucture.entities.RecommendationEntity;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -68,5 +70,23 @@ public class EntityMapper {
         ratingsEntity.setBookId(ratingsModel.getBookId());
         ratingsEntity.setUserId(ratingsModel.getUserId());
         return ratingsEntity;
+    }
+    RecommendationEntity toRecommendationEntity(RecommendationModel recommendationModel) {
+        RecommendationEntity recommendationEntity = new RecommendationEntity();
+        if (recommendationModel.getId() != null) {
+            recommendationEntity.setId(recommendationModel.getId());
+        }
+        recommendationEntity.setUserId(recommendationModel.getUserId());
+        recommendationEntity.setRecommendBookId(recommendationModel.getRecommendBookId());
+        recommendationEntity.setRecommendedBookIds(recommendationModel.getRecommendedBookIds());
+        return recommendationEntity;
+    }
+    RecommendationModel toRecommendationModel(RecommendationEntity recommendationEntity) {
+        RecommendationModel recommendationModel = new RecommendationModel();
+        recommendationModel.setId(recommendationEntity.getId());
+        recommendationModel.setUserId(recommendationEntity.getUserId());
+        recommendationModel.setRecommendBookId(recommendationEntity.getRecommendBookId());
+        recommendationModel.setRecommendedBookIds(recommendationEntity.getRecommendedBookIds());
+        return recommendationModel;
     }
 }

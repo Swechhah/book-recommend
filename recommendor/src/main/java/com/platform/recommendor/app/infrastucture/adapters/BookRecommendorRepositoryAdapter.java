@@ -2,13 +2,16 @@ package com.platform.recommendor.app.infrastucture.adapters;
 
 import com.platform.recommendor.app.domain.model.BookModel;
 import com.platform.recommendor.app.domain.model.RatingsModel;
+import com.platform.recommendor.app.domain.model.RecommendationModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.entities.BookEntity;
 import com.platform.recommendor.app.infrastucture.entities.RatingsEntity;
+import com.platform.recommendor.app.infrastucture.entities.RecommendationEntity;
 import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
 import com.platform.recommendor.app.infrastucture.entities.UserEntity;
 import com.platform.recommendor.app.infrastucture.repositories.BookJpaRepository;
 import com.platform.recommendor.app.infrastucture.repositories.RatingsJpaRepository;
+import com.platform.recommendor.app.infrastucture.repositories.RecommendationRepository;
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,11 +27,14 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     private final BookJpaRepository bookJpaRepository;
     private final EntityMapper entityMapper;
     private final RatingsJpaRepository ratingsJpaRepository;
+    private final RecommendationRepository recommendationRepository;
 
     BookRecommendorRepositoryAdapter(UserJpaRepository userJpaRepository,
                                      EntityMapper entityMapper,
                                      BookJpaRepository bookJpaRepository,
-                                     RatingsJpaRepository ratingsJpaRepository) {
+                                     RatingsJpaRepository ratingsJpaRepository,
+                                     RecommendationRepository recommendationRepository) {
+        this.recommendationRepository = recommendationRepository;
         this.userJpaRepository = userJpaRepository;
         this.entityMapper = entityMapper;
         this.bookJpaRepository = bookJpaRepository;
@@ -142,6 +148,25 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     @Override
     public void deleteAllRatingsByBookId(Long bookId) {
         ratingsJpaRepository.deleteAllByBookId(bookId);
+    }
+
+    @Override
+    public RecommendationModel saveRecommendations(RecommendationModel recommendationModel) {
+        RecommendationEntity recommendationEntity = entityMapper.toRecommendationEntity(recommendationModel);
+        RecommendationEntity recommendationEntitySaved = recommendationRepository.save(recommendationEntity);
+        return entityMapper.toRecommendationModel(recommendationEntitySaved);
+    }
+
+    @Override
+    public RecommendationModel getRecommendationById(Long id) {
+        return recommendationRepository.findById(id).map(entityMapper::toRecommendationModel).orElse(null);
+    }
+
+    @Override
+    public List<RecommendationModel> getRecommendatioByUserId(Long userId) {
+        return recommendationRepository.findByUserId(userId).stream()
+                .map(entityMapper::toRecommendationModel)
+                .collect(Collectors.toList());
     }
 
     @Override
