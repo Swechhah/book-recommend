@@ -14,9 +14,9 @@ import java.util.List;
 public class BookController {
     private final SearchBooksUseCase searchBooksUseCase;
     private final GetBooksUseCase getBooksUseCase;
-    public BookController(SearchBooksUseCase searchBooksUseCase, GetBooksUseCase GetBooksUseCase) {
+    public BookController(SearchBooksUseCase searchBooksUseCase, GetBooksUseCase getBooksUseCase) {
         this.searchBooksUseCase = searchBooksUseCase;
-        this.getBooksUseCase = GetBooksUseCase;
+        this.getBooksUseCase = getBooksUseCase;
     }
     @GetMapping("/search/{query}")
     public List<BookResponse> searchBooks(@PathVariable String query) {

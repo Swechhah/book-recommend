@@ -8,12 +8,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookResponse {
-    public Long  id;
-    public String title;
-    public String author;
-    public String publisher;
-    public String isbn;
-    public String image_url;
+    private Long  id;
+    private String title;
+    private String author;
+    private String publisher;
+    private String isbn;
+    private String image_url;
 
 
 }

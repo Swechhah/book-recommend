@@ -29,6 +29,9 @@ public class GetRecommendationsUseCase {
                 .getIsbn();
         RecommendationResponse response = recommendationClient.getRecommendations(isbn, topN);
         RecommendationModel recommendations = new RecommendationModel();
+        if(repository.getUserByUsername(user.getUsername()).isEmpty()) {
+            throw new IllegalArgumentException("Username not found");
+        }
         UserModel userModel = repository.getUserByUsername(user.getUsername()).get();
         Long bookIdFinal = getBookIdByIsbn(isbn);
         Long userId = userModel.getId();
@@ -54,7 +57,6 @@ public class GetRecommendationsUseCase {
     }
 
     public List<RecommendationInfo> getUserRecommendations(UserDetails user) {
-        UserModel userModel = repository.getUserByUsername(user.getUsername()).get();
         List<RecommendationModel> recommendationModels = repository.getRecommendatioByUser(user);
         return recommendationModels.stream().map(recommendationModel -> {
             RecommendationInfo info = new RecommendationInfo();

@@ -43,7 +43,7 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     }
     @Override
     public Optional<List<UserModel>> getAllUsers() {
-        return Optional.of(userJpaRepository.findAll().stream().map(entityMapper::toUserModel).collect(Collectors.toList()));
+        return Optional.of(userJpaRepository.findAll().stream().map(entityMapper::toUserModel).toList());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
 
     @Override
     public List<BookModel> getAllBooks() {
-        return bookJpaRepository.findAll().stream().map(entityMapper::toBookModel).collect(Collectors.toList());
+        return bookJpaRepository.findAll().stream().map(entityMapper::toBookModel).toList();
     }
 
     @Override
@@ -110,12 +110,12 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
                         (title, author, publisher)
                 .stream()
                 .map(entityMapper::toBookModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<RatingsModel> getAllRatings() {
-        return ratingsJpaRepository.findAll().stream().map(entityMapper::toRatingsModel).collect(Collectors.toList());
+        return ratingsJpaRepository.findAll().stream().map(entityMapper::toRatingsModel).toList();
     }
 
     @Override
@@ -168,7 +168,7 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
         UserModel userModel = getUserByUsername(userDetails.getUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return recommendationRepository.findByUserId(userModel.getId()).stream()
                 .map(entityMapper::toRecommendationModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

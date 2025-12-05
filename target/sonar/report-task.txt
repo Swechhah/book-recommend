@@ -2,5 +2,5 @@ projectKey=recommendation-backendconf
 serverUrl=http://127.0.0.1:9000
 serverVersion=25.11.0.114957
 dashboardUrl=http://127.0.0.1:9000/dashboard?id=recommendation-backendconf
-ceTaskId=c63a823d-9a30-4adc-9673-917625a403d8
-ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=c63a823d-9a30-4adc-9673-917625a403d8
+ceTaskId=324715c5-eec2-4843-8fa6-3761237c56d1
+ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=324715c5-eec2-4843-8fa6-3761237c56d1
