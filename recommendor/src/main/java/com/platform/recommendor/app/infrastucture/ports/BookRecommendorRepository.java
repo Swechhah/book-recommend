@@ -5,6 +5,7 @@ import com.platform.recommendor.app.domain.model.RatingsModel;
 import com.platform.recommendor.app.domain.model.RecommendationModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,5 +36,5 @@ public interface BookRecommendorRepository {
     void deleteAllRatingsByBookId(Long bookId);
     RecommendationModel saveRecommendations(RecommendationModel recommendationModel);
     RecommendationModel getRecommendationById(Long id);
-    List<RecommendationModel> getRecommendatioByUserId(Long userId);
+    List<RecommendationModel> getRecommendatioByUser(UserDetails userDetails);
 }

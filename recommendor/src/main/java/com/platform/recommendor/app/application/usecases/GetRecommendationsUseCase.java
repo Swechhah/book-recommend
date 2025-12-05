@@ -1,6 +1,7 @@
 package com.platform.recommendor.app.application.usecases;
 
 import com.platform.recommendor.app.application.dto.recommendor.RecommendEngineResponse;
+import com.platform.recommendor.app.application.dto.recommendor.RecommendationInfo;
 import com.platform.recommendor.app.application.dto.recommendor.RecommendationResponse;
 import com.platform.recommendor.app.domain.model.RecommendationModel;
 import com.platform.recommendor.app.domain.model.UserModel;
@@ -50,5 +51,16 @@ public class GetRecommendationsUseCase {
         return repository.getBookByISBN(isbn)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found"))
                 .getId();
+    }
+
+    public List<RecommendationInfo> getUserRecommendations(UserDetails user) {
+        UserModel userModel = repository.getUserByUsername(user.getUsername()).get();
+        List<RecommendationModel> recommendationModels = repository.getRecommendatioByUser(user);
+        return recommendationModels.stream().map(recommendationModel -> {
+            RecommendationInfo info = new RecommendationInfo();
+            info.setRecommendBookId(recommendationModel.getRecommendBookId());
+            info.setRecommendedBookIds(recommendationModel.getRecommendedBookIds());
+            return info;
+        }).toList();
     }
 }

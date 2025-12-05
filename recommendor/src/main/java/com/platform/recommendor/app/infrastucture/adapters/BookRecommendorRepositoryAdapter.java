@@ -15,6 +15,7 @@ import com.platform.recommendor.app.infrastucture.repositories.RecommendationRep
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -163,8 +164,9 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     }
 
     @Override
-    public List<RecommendationModel> getRecommendatioByUserId(Long userId) {
-        return recommendationRepository.findByUserId(userId).stream()
+    public List<RecommendationModel> getRecommendatioByUser(UserDetails userDetails) {
+        UserModel userModel = getUserByUsername(userDetails.getUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return recommendationRepository.findByUserId(userModel.getId()).stream()
                 .map(entityMapper::toRecommendationModel)
                 .collect(Collectors.toList());
     }
