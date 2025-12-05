@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginResponse {
-    private String authToken;
+    private String accessToken;
     LoginResponse() {}
-    public LoginResponse(String authToken) {
-        this.authToken = authToken;
+    public LoginResponse(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

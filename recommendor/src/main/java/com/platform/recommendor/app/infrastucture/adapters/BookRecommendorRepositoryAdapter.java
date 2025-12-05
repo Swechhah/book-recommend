@@ -13,14 +13,13 @@ import com.platform.recommendor.app.infrastucture.repositories.BookJpaRepository
 import com.platform.recommendor.app.infrastucture.repositories.RatingsJpaRepository;
 import com.platform.recommendor.app.infrastucture.repositories.RecommendationRepository;
 import com.platform.recommendor.app.infrastucture.repositories.UserJpaRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class BookRecommendorRepositoryAdapter implements BookRecommendorRepository {
@@ -173,6 +172,13 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
 
     @Override
     public Page<BookModel> getBooksPage(int pageNumber, int pageSize) {
+        if(bookJpaRepository.findAll(PageRequest.of(pageNumber, pageSize)).isEmpty()) {
+            throw new EmptyResultDataAccessException("No books found", pageNumber);
+        }
+        if(pageNumber < 0 || pageSize <= 0) {
+            throw new IllegalArgumentException("Invalid page parameters");
+        }
+
         Page<BookEntity> bookEntityPage = bookJpaRepository.findAll(PageRequest.of(pageNumber, pageSize));
         return bookEntityPage.map(entityMapper::toBookModel);
     }

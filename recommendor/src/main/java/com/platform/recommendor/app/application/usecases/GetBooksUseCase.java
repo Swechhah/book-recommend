@@ -16,6 +16,9 @@ public class GetBooksUseCase {
         this.bookRecommendorRepository = bookRecommendorRepository;
     }
     public Page<BookResponse> getBooksPage(int pageNumber, int pageSize) {
+        if(bookRecommendorRepository.getBooksPage(pageNumber, pageSize).isEmpty()){
+            throw new IllegalArgumentException("No books found for the given page parameters");
+        }
         Page<BookModel> bookPage = bookRecommendorRepository.getBooksPage(pageNumber, pageSize);
         return bookPage.map(book -> {
             BookResponse response = new BookResponse();

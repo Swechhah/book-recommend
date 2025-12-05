@@ -3,11 +3,10 @@ package com.platform.recommendor.app.presentation;
 import com.platform.recommendor.app.application.dto.book.BookResponse;
 import com.platform.recommendor.app.application.usecases.GetBooksUseCase;
 import com.platform.recommendor.app.application.usecases.SearchBooksUseCase;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 @RestController
 @RequestMapping("/api/book")
@@ -27,8 +26,8 @@ public class BookController {
         return getBooksUseCase.getBooksByIsbn(isbn);
     }
     @GetMapping
-    public List<BookResponse> getBooks() {
-        return getBooksUseCase.getBooks();
+    public Page<BookResponse> getBookspage(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        return getBooksUseCase.getBooksPage(pageNumber, pageSize);
     }
 
 }
