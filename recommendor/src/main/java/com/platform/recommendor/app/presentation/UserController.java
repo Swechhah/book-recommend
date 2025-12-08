@@ -1,5 +1,6 @@
 package com.platform.recommendor.app.presentation;
 
+import com.platform.common.application.dto.CommonResponse;
 import com.platform.recommendor.app.application.dto.user.LoginRequest;
 import com.platform.recommendor.app.application.dto.user.LoginResponse;
 import com.platform.recommendor.app.application.dto.user.UserRequest;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/user")
@@ -23,13 +26,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserResponse registerUser(@RequestBody UserRequest userRequest) {
-        return userRegister.registerUser(userRequest);
+    public CommonResponse<UserResponse> registerUser(@RequestBody UserRequest userRequest) {
+        return CommonResponse.success(userRegister.execute(userRequest), "User Registration Successful");
     }
 
     @PostMapping("/login")
-    public LoginResponse loginUser(@RequestBody LoginRequest userRequest) {
-        return userLogin.login(userRequest);
+    public CommonResponse<LoginResponse> loginUser(@RequestBody LoginRequest userRequest) {
+        return CommonResponse.success(userLogin.execute(userRequest), "User Login Successful");
     }
 
 }

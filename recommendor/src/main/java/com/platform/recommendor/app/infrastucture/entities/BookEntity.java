@@ -24,5 +24,5 @@ public class BookEntity {
     @Column
     private String isbn;
     @Column
-    private String image_url;
+    private String imageUrl;
 }

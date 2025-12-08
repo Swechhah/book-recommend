@@ -21,12 +21,13 @@ public class UserLoginUseCase {
         this.jwUtil = jwUtil;
     }
 
-    public LoginResponse login(LoginRequest userDto) {
+    public LoginResponse execute(LoginRequest userDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userDto.getUsername(),
                         userDto.getPassword())
         );
+
         UserModel user = repository.getUserByUsername(userDto.getUsername()).get();
         String authToken = jwUtil.generateToken(user.getUsername());
 

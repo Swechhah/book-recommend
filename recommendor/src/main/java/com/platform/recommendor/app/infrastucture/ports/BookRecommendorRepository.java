@@ -36,5 +36,6 @@ public interface BookRecommendorRepository {
     void deleteAllRatingsByBookId(Long bookId);
     RecommendationModel saveRecommendations(RecommendationModel recommendationModel);
     RecommendationModel getRecommendationById(Long id);
-    List<RecommendationModel> getRecommendatioByUser(UserDetails userDetails);
+    List<RecommendationModel> getRecommendationByUser(UserDetails userDetails);
+    List<RatingsModel> getAllRatingsByBookId(Long bookId);
 }

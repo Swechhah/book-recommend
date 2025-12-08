@@ -1,6 +1,5 @@
 package com.platform.recommendor.app.application.usecases;
 
-import com.platform.recommendor.app.application.dto.recommendor.RecommendEngineResponse;
 import com.platform.recommendor.app.application.dto.recommendor.RecommendationInfo;
 import com.platform.recommendor.app.application.dto.recommendor.RecommendationResponse;
 import com.platform.recommendor.app.domain.model.RecommendationModel;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GetRecommendationsUseCase {
@@ -57,7 +55,7 @@ public class GetRecommendationsUseCase {
     }
 
     public List<RecommendationInfo> getUserRecommendations(UserDetails user) {
-        List<RecommendationModel> recommendationModels = repository.getRecommendatioByUser(user);
+        List<RecommendationModel> recommendationModels = repository.getRecommendationByUser(user);
         return recommendationModels.stream().map(recommendationModel -> {
             RecommendationInfo info = new RecommendationInfo();
             info.setRecommendBookId(recommendationModel.getRecommendBookId());

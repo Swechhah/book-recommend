@@ -5,9 +5,7 @@ import com.platform.recommendor.app.application.dto.rating.RatingResponse;
 import com.platform.recommendor.app.domain.model.RatingsModel;
 import com.platform.recommendor.app.domain.model.UserModel;
 import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +14,7 @@ public class AddRatingsUseCase {
     public AddRatingsUseCase(BookRecommendorRepository repository) {
         this.repository = repository;
     }
-    public RatingResponse addRating(UserDetails user, RatingRequest ratingRequest) {
+    public RatingResponse execute(UserDetails user, RatingRequest ratingRequest) {
         RatingsModel ratingsModel = new RatingsModel();
         ratingsModel.setBookId(ratingRequest.getBookId());
         ratingsModel.setRating(ratingRequest.getRating());

@@ -27,7 +27,7 @@ spring:
 jwt:
   secret: uifdjhwerutw37348798((&*()_^%^&&(&%&^*(ouDIGHHJGEJK
 
-recommendor:
+recommend:
   url:
     python-microservice: ${PYTHON_MICRO_URL:http://0.0.0.0:8000}
 

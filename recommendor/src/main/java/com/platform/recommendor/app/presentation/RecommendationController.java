@@ -1,5 +1,6 @@
 package com.platform.recommendor.app.presentation;
 
+import com.platform.common.application.dto.CommonResponse;
 import com.platform.recommendor.app.application.dto.recommendor.RecommendationInfo;
 import com.platform.recommendor.app.application.dto.recommendor.RecommendationResponse;
 import com.platform.recommendor.app.application.usecases.GetRecommendationsUseCase;
@@ -22,11 +23,11 @@ public class RecommendationController {
     }
 
     @GetMapping("/{bookId}")
-    public RecommendationResponse recommend(@AuthenticationPrincipal UserDetails user , @PathVariable Long bookId) {
-        return getRecommendationsUseCase.execute(user, bookId, 5);
+    public CommonResponse<RecommendationResponse> recommend(@AuthenticationPrincipal UserDetails user , @PathVariable Long bookId) {
+        return CommonResponse.success(getRecommendationsUseCase.execute(user, bookId, 5), "Recommendation Successful");
     }
     @GetMapping
-    public List<RecommendationInfo> getRecommendations(@AuthenticationPrincipal UserDetails user) {
-        return getRecommendationsUseCase.getUserRecommendations(user);
+    public CommonResponse<List<RecommendationInfo>> getRecommendations(@AuthenticationPrincipal UserDetails user) {
+        return CommonResponse.success(getRecommendationsUseCase.getUserRecommendations(user), "Recommendations done");
     }
 }

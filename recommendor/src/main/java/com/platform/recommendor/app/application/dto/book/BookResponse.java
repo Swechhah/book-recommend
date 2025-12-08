@@ -1,6 +1,9 @@
 package com.platform.recommendor.app.application.dto.book;
 
+import com.platform.recommendor.app.application.dto.rating.RatingResponse;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +16,8 @@ public class BookResponse {
     private String author;
     private String publisher;
     private String isbn;
-    private String image_url;
+    private String imageUrl;
+    private List<RatingResponse> ratings;
 
 
 }

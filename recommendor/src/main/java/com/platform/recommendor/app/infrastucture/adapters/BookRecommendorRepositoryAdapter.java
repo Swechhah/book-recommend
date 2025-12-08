@@ -163,12 +163,14 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
     }
 
     @Override
-    public List<RecommendationModel> getRecommendatioByUser(UserDetails userDetails) {
+    public List<RecommendationModel> getRecommendationByUser(UserDetails userDetails) {
         UserModel userModel = getUserByUsername(userDetails.getUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return recommendationRepository.findByUserId(userModel.getId()).stream()
                 .map(entityMapper::toRecommendationModel)
                 .toList();
     }
+
+
 
     @Override
     public Page<BookModel> getBooksPage(int pageNumber, int pageSize) {
@@ -181,5 +183,10 @@ public class BookRecommendorRepositoryAdapter implements BookRecommendorReposito
 
         Page<BookEntity> bookEntityPage = bookJpaRepository.findAll(PageRequest.of(pageNumber, pageSize));
         return bookEntityPage.map(entityMapper::toBookModel);
+    }
+    @Override
+    public List<RatingsModel> getAllRatingsByBookId(Long bookId) {
+        List<RatingsEntity> ratingsEntityList = ratingsJpaRepository.findAllByBookId(bookId);
+        return ratingsEntityList.stream().map(entityMapper::toRatingsModel).toList();
     }
 }

@@ -12,7 +12,7 @@ public class RecommendationClientAdapter implements RecommendationClient {
     private final WebClient webClient;
 
     public RecommendationClientAdapter(
-            @Value("${recommendor.url.python-microservice}") String baseUrl
+            @Value("${recommend.url.python-microservice}") String baseUrl
     ) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)

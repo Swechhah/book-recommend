@@ -18,7 +18,7 @@ public class UserRegisterUseCase {
     }
 
     @Transactional
-    public UserResponse registerUser(UserRequest userRequest) {
+    public UserResponse execute(UserRequest userRequest) {
 
         UserModel user = new UserModel();
         user.setFirstName(userRequest.getFirstName());

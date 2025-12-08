@@ -1,6 +1,5 @@
 package com.platform.recommendor.app.domain.model;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter
@@ -16,5 +15,5 @@ public class BookModel {
     private String author;
     private String publisher;
     private String isbn;
-    private String image_url;
+    private String imageUrl;
 }

@@ -16,7 +16,7 @@ public class SearchBooksUseCase {
         this.repository = repository;
     }
 
-    public List<BookResponse> searchBooks(String query){
+    public List<BookResponse> execute(String query){
         List<BookModel> bookList = repository.searchBooks(query, query, query);
         return bookList.stream()
                 .map(book -> {
@@ -26,6 +26,7 @@ public class SearchBooksUseCase {
                     response.setTitle(book.getTitle());
                     response.setAuthor(book.getAuthor());
                     response.setPublisher(book.getPublisher());
+                    response.setImageUrl(book.getImageUrl());
                     return response;
                 })
                 .toList();

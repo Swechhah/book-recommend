@@ -1,5 +1,6 @@
 package com.platform.recommendor.app.presentation;
 
+import com.platform.common.application.dto.CommonResponse;
 import com.platform.recommendor.app.application.dto.rating.RatingRequest;
 import com.platform.recommendor.app.application.dto.rating.RatingResponse;
 import com.platform.recommendor.app.application.usecases.AddRatingsUseCase;
@@ -18,7 +19,7 @@ public class RatingsController {
         this.addRatingsUseCase = addRatingsUseCase;
     }
     @PostMapping
-    public RatingResponse addRating(@AuthenticationPrincipal UserDetails user, @RequestBody RatingRequest ratingRequest) {
-        return addRatingsUseCase.addRating(user, ratingRequest);
+    public CommonResponse<RatingResponse> addRating(@AuthenticationPrincipal UserDetails user, @RequestBody RatingRequest ratingRequest) {
+        return CommonResponse.success(addRatingsUseCase.execute(user, ratingRequest), "Rating added");
     }
 }

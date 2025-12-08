@@ -41,7 +41,7 @@ public class EntityMapper {
         bookEntity.setTitle(bookModel.getTitle());
         bookEntity.setAuthor(bookModel.getAuthor());
         bookEntity.setPublisher(bookModel.getPublisher());
-        bookEntity.setImage_url(bookModel.getImage_url());
+        bookEntity.setImageUrl(bookModel.getImageUrl());
         return bookEntity;
     }
     BookModel toBookModel(BookEntity bookEntity) {
@@ -51,7 +51,7 @@ public class EntityMapper {
         bookModel.setTitle(bookEntity.getTitle());
         bookModel.setAuthor(bookEntity.getAuthor());
         bookModel.setPublisher(bookEntity.getPublisher());
-        bookModel.setImage_url(bookEntity.getImage_url());
+        bookModel.setImageUrl(bookEntity.getImageUrl());
         return bookModel;
     }
 
