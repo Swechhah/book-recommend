@@ -2,18 +2,22 @@ package com.platform.recommendor.app.application.usecases;
 
 import com.platform.recommendor.app.application.dto.book.BookResponse;
 import com.platform.recommendor.app.domain.model.BookModel;
-import com.platform.recommendor.app.infrastucture.ports.BookRecommendorRepository;
+import com.platform.recommendor.app.domain.ports.out.BookRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GetBooksByIsbnUseCase {
-    private final BookRecommendorRepository repository;
-    public GetBooksByIsbnUseCase(BookRecommendorRepository repository) {
+    private final BookRepository repository;
+    public GetBooksByIsbnUseCase(BookRepository repository) {
         this.repository = repository;
     }
     public BookResponse execute(String isbn) {
-        BookModel bookModel = repository.getBookByISBN(isbn)
-                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        BookModel bookModel = repository.getBookByISBN(isbn);
+        return getBookResponse(bookModel);
+    }
+
+    private BookResponse getBookResponse(BookModel bookModel) {
+
         BookResponse response = new BookResponse();
         response.setId(bookModel.getId());
         response.setIsbn(bookModel.getIsbn());

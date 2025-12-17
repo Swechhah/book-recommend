@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 8083
 
 spring:
   application:
     name: recommendor
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/recommendationdb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/recommendationdb?options=-c%20TimeZone=Asia/Kathmandu}
     driver-class-name: org.postgresql.Driver
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
@@ -22,6 +22,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           batch_size: 1000
+          time_zone: Asia/Kathmandu
         order_updates: true
         order_inserts: true
 jwt:
@@ -30,4 +31,6 @@ jwt:
 recommend:
   url:
     python-microservice: ${PYTHON_MICRO_URL:http://0.0.0.0:8000}
+
+
 

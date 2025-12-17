@@ -1,5 +1,6 @@
 package com.platform.recommendor.app.presentation;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.platform.common.application.dto.CommonResponse;
 import com.platform.recommendor.app.application.dto.user.LoginRequest;
 import com.platform.recommendor.app.application.dto.user.LoginResponse;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-
 @RestController
 @RequestMapping("/api/user")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserController {
     private final UserRegisterUseCase userRegister;
     private final UserLoginUseCase userLogin;

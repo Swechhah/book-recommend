@@ -1,16 +1,18 @@
 package com.platform.recommendor.app.presentation;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.platform.recommendor.app.application.dto.book.BookResponse;
 import com.platform.recommendor.app.application.usecases.GetBooksByIsbnUseCase;
 import com.platform.recommendor.app.application.usecases.GetBooksUseCase;
 import com.platform.recommendor.app.application.usecases.SearchBooksUseCase;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import org.springframework.data.domain.Page;
+
 
 @RestController
 @RequestMapping("/api/book")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class BookController {
     private final SearchBooksUseCase searchBooksUseCase;
     private final GetBooksUseCase getBooksUseCase;
@@ -30,7 +32,8 @@ public class BookController {
         return getBooksByIsbnUseCase.execute(isbn);
     }
     @GetMapping
-    public Page<BookResponse> getBookspage(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    public List<BookResponse> getBooks(@RequestParam(defaultValue = "0") int pageNumber,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
         return getBooksUseCase.execute(pageNumber, pageSize);
     }
 
